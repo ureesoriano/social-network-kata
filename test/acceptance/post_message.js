@@ -1,37 +1,23 @@
 const should = require('chai').should();
-const _ = require('lodash');
 
-const sn = require('./sn');
+const CommandDispatcher = require('../../src/infrastructure/commandDispatcher');
+const PostsRepository = require('../../src/infrastructure/postsRepository');
 
-describe.only('Setup', () => {
-  it('is OK', () => {
-    sn().should.equal(1);
+Feature('Post Message', () => {
+  let commandDispatcher;
+
+  beforeEachScenario(() => {
+    postsRepository = new PostsRepository();
+    commandDispatcher = new CommandDispatcher(postsRepository);
+  });
+
+  Scenario('Existing user posts a message', () => {
+    Given('A user Alice', () => {});
+    When('Alice posts a message', () => {
+      commandDispatcher.dispatch('Alice -> Good morning!');
+    });
+    Then('The message is added to Alice\'s Posts', () => {
+      postsRepository.get_user_posts('Alice').length.should.equal(1);
+    });
   });
 });
-
-describe.skip(`sn function`, () => {
-  beforeEach(() => {
-    // ...
-  });
-
-  it(`it should ..`, () => {
-    contains_array(sn(), [50,50,50,50,50]).should.be.true;
-  });
-
-  // ...
-});
-
-describe(`contains_array function`, () => {
-  it('returns true with a contained array', () => {
-    expect(contains_array([[1,2,3],[1,2],[1]], [1])).to.be.true;
-  });
-
-  // ...
-});
-
-const contains_array = (arrays, array) => {
-  return arrays
-    .filter(a =>
-      _.isEqual(a, array)
-    ).length > 0;
-}
