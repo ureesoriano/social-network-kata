@@ -33,4 +33,4 @@ test: build
 	$(docker-run) npm run test
 
 test-watch: build
-	$(docker-run) npm run test -- --watch
+	$(docker-run) npm run test-watch

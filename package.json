@@ -5,8 +5,8 @@
   "main": "sn.js",
   "private": true,
   "scripts": {
-    "test": "NODE_ENV=test mocha test.js",
-    "test/watch": "npm run test -- --watch"
+    "test": "NODE_ENV=test mocha --ui mocha-cakes-2 --recursive test",
+    "test-watch": "npm run test -- --watch"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "chai": "^4.2.0",
     "fast-check": "^1.18.1",
     "lodash": "^4.17.15",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "mocha-cakes-2": "^3.3.0"
   }
 }
