@@ -16,6 +16,7 @@
     "fast-check": "^1.18.1",
     "lodash": "^4.17.15",
     "mocha": "^6.2.0",
-    "mocha-cakes-2": "^3.3.0"
+    "mocha-cakes-2": "^3.3.0",
+    "sinon": "^7.5.0"
   }
 }
