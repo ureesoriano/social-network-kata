@@ -11,6 +11,7 @@ const rl = readline.createInterface({
 const commandDispatcher = new CommandDispatcher();
 
 rl.on('line', (command) => {
-  commandDispatcher.dispatch(command);
+  const command_output = commandDispatcher.dispatch(command);
+  console.log(command_output);
 });
 
