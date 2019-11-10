@@ -1,14 +1,18 @@
 const should = require('chai').should();
 
-const CommandDispatcher = require('../../src/infrastructure/commandDispatcher');
+const UseCaseFactory = require('../../src/useCase/Factory');
 const PostsRepository = require('../../src/infrastructure/postsRepository');
+const CommandDispatcher = require('../../src/infrastructure/commandDispatcher');
 
 Feature('Post Message', () => {
+  let useCaseFactory;
+  let postsRepository;
   let commandDispatcher;
 
   beforeEachScenario(() => {
     postsRepository = new PostsRepository();
-    commandDispatcher = new CommandDispatcher(postsRepository);
+    useCaseFactory = new UseCaseFactory(postsRepository);
+    commandDispatcher = new CommandDispatcher(useCaseFactory, postsRepository);
   });
 
   Scenario('Existing user posts a message', () => {

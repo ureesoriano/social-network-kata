@@ -7,8 +7,16 @@ class CommandParser {
       const message = matches[2];
       return {
         type: 'PostMessage',
-        parameters: [username, message],
+        parameters: {username, message},
       };
+    } else if (matches = command.match(/^(.+)$/)) {
+      const username = matches[1];
+      return {
+        type: 'ReadTimeline',
+        parameters: {username},
+      };
+    } else {
+      throw new Error(`Unknown command: ${command}`);
     }
   }
 }

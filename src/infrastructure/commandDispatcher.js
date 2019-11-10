@@ -1,16 +1,19 @@
 const PostsRepository = require('../infrastructure/postsRepository');
 const PostMessage = require('../useCase/postMessage');
 const CommandParser = require('./commandParser');
+const UseCaseFactory = require('./../useCase/Factory');
 
 class CommandDispatcher {
-  constructor(postsRepository) {
+  constructor(useCaseFactory, postsRepository) {
+    this.useCaseFactory = useCaseFactory || new UseCaseFactory();
     this.postsRepository = postsRepository || new PostsRepository();
   }
 
   dispatch(command) {
-    const { username, message } = CommandParser.parse(command).parameters;
-    const postMessage = new PostMessage(this.postsRepository);
-    postMessage.process(username, message);
+    const { type, parameters } = CommandParser.parse(command);
+    const useCase = this.useCaseFactory.build(type);
+
+    return useCase.process(parameters);
   }
 }
 

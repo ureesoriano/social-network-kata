@@ -1,14 +1,16 @@
 const PostsRepository = require('../infrastructure/postsRepository');
 
-class PostMessage {
+class ReadTimeline {
   constructor(postsRepository) {
     this.postsRepository = postsRepository || new PostsRepository();
   }
 
-  process(parameters) {
-    this.postsRepository.add(parameters.username, parameters.message);
-    return '';
+  process(username) {
+    return this.postsRepository
+      .get_user_posts(username)
+      .map(p => p.message)
+      .join("\n");
   }
 }
 
-module.exports = PostMessage;
+module.exports = ReadTimeline;
