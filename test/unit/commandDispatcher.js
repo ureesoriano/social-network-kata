@@ -64,4 +64,34 @@ describe('CommandDispatcher', () => {
       useCaseMock.verify();
     });
   });
+
+  describe('When a "FollowUser" command is issued', () => {
+    beforeEach(() => {
+      const useCaseFake = { process: () => 1 };
+      useCaseMock = sinon.mock(useCaseFake);
+
+      const useCaseFactoryStub = { build: () => useCaseFake };
+      useCaseFactoryStub.build = sinon.stub();
+      useCaseFactoryStub.build
+        .withArgs('FollowUser')
+        .returns(useCaseFake);
+
+      const commandDispatcher = new CommandDispatcher(useCaseFactoryStub);
+
+      useCaseMock
+        .expects('process')
+        .once()
+        .withExactArgs({username: 'Alice', follows: 'Bob'});
+
+      commandDispatcher.dispatch('Alice follows Bob');
+    });
+
+    afterEach(() => {
+      useCaseMock.restore();
+    });
+
+    it('Should call process', () => {
+      useCaseMock.verify();
+    });
+  });
 });

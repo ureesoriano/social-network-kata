@@ -1,12 +1,14 @@
 const PostsRepository = require('../infrastructure/postsRepository');
+const FollowersRepository = require('../infrastructure/followersRepository');
 const PostMessage = require('../useCase/postMessage');
 const CommandParser = require('./commandParser');
 const UseCaseFactory = require('./../useCase/Factory');
 
 class CommandDispatcher {
-  constructor(useCaseFactory, postsRepository) {
+  constructor(useCaseFactory, postsRepository, followersRepository) {
     this.useCaseFactory = useCaseFactory || new UseCaseFactory();
     this.postsRepository = postsRepository || new PostsRepository();
+    this.followersRepository = followersRepository || new FollowersRepository();
   }
 
   dispatch(command) {

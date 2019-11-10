@@ -9,6 +9,13 @@ class CommandParser {
         type: 'PostMessage',
         parameters: {username, message},
       };
+    } else if (matches = command.match(/^(.+)\sfollows\s(.+)$/)) {
+      const username = matches[1];
+      const follows = matches[2];
+      return {
+        type: 'FollowUser',
+        parameters: {username, follows},
+      };
     } else if (matches = command.match(/^(.+)$/)) {
       const username = matches[1];
       return {
